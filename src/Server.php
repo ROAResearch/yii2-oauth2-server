@@ -1,14 +1,17 @@
 <?php
 
-namespace tecnocen\oauth2server;
+namespace roaresearch\yii2\oauth2server;
 
-use OAuth2\ClientAssertionType\ClientAssertionTypeInterface;
-use OAuth2\RequestInterface;
-use OAuth2\ResponseInterface;
-use OAuth2\ScopeInterface;
-use OAuth2\TokenType\TokenTypeInterface;
+use OAuth2\{
+    ClientAssertionType\ClientAssertionTypeInterface,
+    RequestInterface,
+    ResponseInterface,
+    ScopeInterface,
+    Server as BaseServer,
+    TokenType\TokenTypeInterface
+};
 
-class Server extends \OAuth2\Server
+class Server extends BaseServer
 {
     /**
      * @var Module

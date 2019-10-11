@@ -1,11 +1,15 @@
 <?php
 
-namespace tecnocen\oauth2server;
+namespace roaresearch\yii2\oauth2server;
 
-use tecnocen\oauth2server\models\OauthAccessTokens as AccessToken;
+use roaresearch\yii2\oauth2server\models\OauthAccessTokens as AccessToken;
+use yii\db\ActiveQuery;
 
 trait RevokeAccessTokenTrait
 {
+    /**
+     * @inheritdoc
+     */
     public static function findIdentityByAccessToken($token, $type = null)
     {
         return static::find()->innerJoinWith([
@@ -16,14 +20,17 @@ trait RevokeAccessTokenTrait
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getAccessTokens()
+    public function getAccessTokens(): ActiveQuery
     {
         return $this->hasMany(AccessToken::class, ['user_id' => 'id']);
     }
 
-    public function getActiveAccessToken()
+    /**
+     * @return ActiveQuery
+     */
+    public function getActiveAccessToken(): ActiveQuery
     {
         $query = $this->getAccessTokens();
         $query->multiple = false;
@@ -31,17 +38,26 @@ trait RevokeAccessTokenTrait
         return $query;
     }
 
-    public function getAccessTokenData()
+    /**
+     * @inheritdoc
+     */
+    public function getAccessTokenData(): AccessToken
     {
         return $this->activeAccessToken;
     }
 
-    public function revokeActiveAccessToken()
+    /**
+     * @inheritdoc
+     */
+    public function revokeActiveAccessToken(): bool
     {
         return $this->getAccessTokenData()->delete();
     }
 
-    public function revokeAllAccessTokens()
+    /**
+     * @inheritdoc
+     */
+    public function revokeAllAccessTokens(): bool
     {
         return AccessToken::deleteAll(['user_id' => $this->id]) > 0;
     }

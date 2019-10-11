@@ -1,6 +1,12 @@
 Yii2 OAuth2 Server Library
 ==========================
 
+5.0.0
+-----
+
+- [Brk] PSR12 support
+- [Brk] Namespace change.
+
 4.1.1
 -----
 

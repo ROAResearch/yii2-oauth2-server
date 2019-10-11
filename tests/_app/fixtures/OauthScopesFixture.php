@@ -2,7 +2,7 @@
 
 namespace app\fixtures;
 
-use tecnocen\oauth2server\models\OauthScopes;
+use roaresearch\yii2\oauth2server\models\OauthScopes;
 
 class OauthScopesFixture extends \yii\test\ActiveFixture
 {

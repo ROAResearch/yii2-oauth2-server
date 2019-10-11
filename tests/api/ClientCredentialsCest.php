@@ -1,7 +1,7 @@
 <?php
 
 use Codeception\Util\HttpCode;
-use tecnocen\oauth2server\fixtures\OauthClientsFixture;
+use roaresearch\yii2\oauth2server\fixtures\OauthClientsFixture;
 
 /**
  * @author Christopher CM <ccastaneira@tecnoce.com>

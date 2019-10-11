@@ -1,8 +1,9 @@
 <?php
 
-namespace tecnocen\oauth2server\models;
+namespace roaresearch\yii2\oauth2server\models;
 
 use Yii;
+use yii\db\{ActiveQuery, ActiveRecord};
 
 /**
  * This is the model class for table "oauth_scopes".

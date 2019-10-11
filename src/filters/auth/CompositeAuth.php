@@ -1,14 +1,16 @@
 <?php
 
-namespace tecnocen\oauth2server\filters\auth;
+namespace roaresearch\yii2\oauth2server\filters\auth;
 
-use tecnocen\oauth2server\filters\ErrorToExceptionTrait;
+use roaresearch\yii2\oauth2server\filters\ErrorToExceptionTrait;
 use Yii;
-use yii\filters\auth\HttpBearerAuth;
-use yii\filters\auth\QueryParamAuth;
-use yii\helpers\StringHelper;
-use yii\web\HttpException;
+use yii\filters\auth\{HttpBearerAuth, QueryParamAuth};
+use yii\{helpers\StringHelper, web\HttpException};
 
+/**
+ * Filter to handle OAuth2 authentication. To do so it initialize the OAuth2
+ * Server and handles it responses.
+ */
 class CompositeAuth extends \yii\filters\auth\CompositeAuth
 {
     use ErrorToExceptionTrait {
@@ -63,7 +65,7 @@ class CompositeAuth extends \yii\filters\auth\CompositeAuth
      * @param string $actionId
      * @return ?string the required scope or `null` if no scope is required.
      */
-    protected function fetchActionScope($actionId)
+    protected function fetchActionScope(string $actionId): ?string
     {
         if (empty($this->actionScopes)) {
             return null;

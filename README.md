@@ -4,11 +4,11 @@ Yii2 OAuth2 Server
 A wrapper for implementing an
 [OAuth2 Server](https://github.com/bshaffer/oauth2-server-php).
 
-[![Latest Stable Version](https://poser.pugx.org/tecnocen/yii2-oauth2-server/v/stable)](https://packagist.org/packages/tecnocen/yii2-oauth2-server)
-[![Total Downloads](https://poser.pugx.org/tecnocen/yii2-oauth2-server/downloads)](https://packagist.org/packages/tecnocen/yii2-oauth2-server)
+[![Latest Stable Version](https://poser.pugx.org/roaresearch/yii2-oauth2-server/v/stable)](https://packagist.org/packages/roaresearch/yii2-oauth2-server)
+[![Total Downloads](https://poser.pugx.org/roaresearch/yii2-oauth2-server/downloads)](https://packagist.org/packages/roaresearch/yii2-oauth2-server)
 
 
-Travis [![Build Status Travis](https://travis-ci.org/tecnocen-com/yii2-oauth2-server.svg?branch=master&style=flat?style=for-the-badge)](https://travis-ci.org/tecnocen-com/yii2-oauth2-server)
+Travis [![Build Status Travis](https://travis-ci.org/roaresearch/yii2-oauth2-server.svg?branch=master&style=flat?style=for-the-badge)](https://travis-ci.org/roaresearch/yii2-oauth2-server)
 
 This project was forked from
 [Filsh Original Project](https://github.com/Filsh/yii2-oauth2-server) but the
@@ -23,13 +23,13 @@ The preferred way to install this extension is through
 Either run
 
 ```
-php composer.phar require --prefer-dist tecnocen/yii2-oauth2-server "*"
+php composer.phar require --prefer-dist roaresearch/yii2-oauth2-server "*"
 ```
 
 or add
 
 ```json
-"tecnocen/yii2-oauth2-server": "~4.1"
+"roaresearch/yii2-oauth2-server": "~5.0.0"
 ```
 
 to the require section of your composer.json.
@@ -45,7 +45,7 @@ configuration as a new module:
     'modules'=>[
         // other modules ...
         'oauth2' => [
-            'class' => 'tecnocen\oauth2server\Module',            
+            'class' => \roaresearch\yii2\oauth2server\Module::class,
             'tokenParamName' => 'accessToken',
             'tokenAccessLifetime' => 3600 * 24,
             'storageMap' => [
@@ -58,9 +58,9 @@ configuration as a new module:
                 'refresh_token' => [
                     'class' => 'OAuth2\GrantType\RefreshToken',
                     'always_issue_new_refresh_token' => true
-                ]
-            ]
-        ]
+                ],
+            ],
+        ],
     ],
 ```
 
@@ -70,7 +70,7 @@ Bootstrap will initialize translation and add the required url rules to
 ### JWT tokens
 
 There is no JWT token support on this fork, feel free to submit a
-(pull request)[https://github.com/tecnocen-com/yii2-oauth2-server/pulls] to
+(pull request)[https://github.com/roaresearch/yii2-oauth2-server/pulls] to
 enable this functionality.
 
 ### UserCredentialsInterface
@@ -82,8 +82,8 @@ table.
 ```php
 use Yii;
 
-class User extends common\models\User
-    implements \OAuth2\Storage\UserCredentialsInterface
+class User extends common\models\User implements
+    \OAuth2\Storage\UserCredentialsInterface
 {
 
     /**
@@ -91,12 +91,12 @@ class User extends common\models\User
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        /** @var \tecnocen\oauth2server\Module $module */
+        /** @var \roaresearch\yii2\oauth2server\Module $module */
         $module = Yii::$app->getModule('oauth2');
         $token = $module->getServer()->getResourceController()->getToken();
         return !empty($token['user_id'])
-                    ? static::findIdentity($token['user_id'])
-                    : null;
+            ? static::findIdentity($token['user_id'])
+            : null;
     }
 
     /**
@@ -127,8 +127,8 @@ class User extends common\models\User
 The next step is to run migrations
 
 ```php
-yii migrate all -p=@tecnocen/oauth2server/migrations/tables
-yii fixture "*" -n=tecnocen/oauth2server/fixtures
+yii migrate all -p=@roaresearch/yii2/oauth2server/migrations/tables
+yii fixture "*" -n=roaresearch\\yii2\\oauth2server\\fixtures
 ```
 
 The first commando create the OAuth2 database scheme. The second command insert
@@ -140,10 +140,12 @@ To support authentication by access token. Simply add the behaviors for your
 controller or module.
 
 ```php
-use yii\helpers\ArrayHelper;
-use yii\filters\auth\HttpBearerAuth;
-use yii\filters\auth\QueryParamAuth;
-use tecnocen\oauth2server\filters\auth\CompositeAuth;
+use yii\{
+    helpers\ArrayHelper,
+    auth\HttpBearerAuth,
+    filters\auth\QueryParamAuth,
+};
+use roasearch\yii2\oauth2server\filters\auth\CompositeAuth;
 
 class Controller extends \yii\rest\Controller
 {
@@ -161,7 +163,7 @@ class Controller extends \yii\rest\Controller
                         'class' => QueryParamAuth::class,
                         'tokenParam' => 'accessToken',
                     ],
-                ]
+                ],
             ],
         ]);
     }
@@ -173,7 +175,7 @@ simplified as:
 
 ```php
 use yii\helpers\ArrayHelper;
-use tecnocen\oauth2server\filters\auth\CompositeAuth;
+use roaresearch\yii2\oauth2server\filters\auth\CompositeAuth;
 
 class Controller extends \yii\rest\Controller
 {
@@ -191,7 +193,7 @@ class Controller extends \yii\rest\Controller
 
 ### Scopes
 
-The property `tecnocen\oauth2server\filters\auth\CompositeAuth::$actionScopes`
+The property `roaresearch\yii2\oauth2server\filters\auth\CompositeAuth::$actionScopes`
 set which actions require specific scopes. If those scopes are not meet the
 action wont be executed, and the server will reply with an HTTP Status Code 403.
 
@@ -205,7 +207,7 @@ public function behaviors()
                 'create' => 'default create',
                 'update' => 'default edit',
                 '*' => 'default', // wildcards are allowed
-            ]
+            ],
         ],,
     ]);
 }
@@ -217,14 +219,16 @@ Sometimes its neccessary to revoke a token on each request to prevent the
 request from being triggered twice.
 
 To enable this functionality you need to implement
-`tecnocen\oauth2server\RevokeAccessTokenInterface` in the class used to identify
+`roaresearch\yii2\oauth2server\RevokeAccessTokenInterface` in the class used to identify
 the authenticated user.
 
 ```php
 
 use OAuth2\Storage\UserCredentialsInterface;
-use tecnocen\oauth2server\RevokeAccessTokenInterface;
-use tecnocen\oauth2server\RevokeAccessTokenTrait;
+use roaresearch\yii2\oauth2server\{
+    RevokeAccessTokenInterface,
+    RevokeAccessTokenTrait,
+};
 
 class User extend \yii\db\ActiveRecord implement
     UserCredentialsInterface,
@@ -238,7 +242,7 @@ class User extend \yii\db\ActiveRecord implement
 
 Then use the previous class as configuration for `Yii::$app->user->identityClass`
 
-Attaching the action filter `tecnocen\oauth2server\filters\RevokeAccessToken`
+Attaching the action filter `roaresearch\yii2\oauth2server\filters\RevokeAccessToken`
 allows to configure the actions to automatically revoke the access token.
 
 ```php
@@ -246,7 +250,7 @@ public function behaviors()
 {
     return [
         'revokeToken' => [
-            'class' => \tecnocen\oauth2server\filters\RevokeAccessToken::class,
+            'class' => \roaresearch\yii2\oauth2server\filters\RevokeAccessToken::class,
             // optional only revoke the token if it has any of the following
             // scopes. if not defined it will always revoke the token.
             'scopes' => ['author', 'seller'],
@@ -256,7 +260,7 @@ public function behaviors()
             'allowGuests' => true,
             // which actions this behavior applies to.
             'only' => ['create', 'update'],
-        ]
+        ],
     ];
 }
 ```
@@ -284,24 +288,24 @@ var data = {
 
 ## Code of Conduct
 
-Please read [CODE_OF_CONDUCT.md](https://github.com/tecnocen-com/yii2-oauth2-server/blob/master/CODE_OF_CONDUCT.md) for details on our code of conduct.
+Please read [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for details on our code of conduct.
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://github.com/tecnocen-com/yii2-oauth2-server/blob/master/CONTRIBUTING.md) for details on the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on the process for submitting pull requests to us.
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/tecnocen-com/yii2-oauth2-server/tags).
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](/tags).
 
 _Considering [SemVer](http://semver.org/) for versioning rules 9, 10 and 11 talk about pre-releases, they will not be used within the Tecnocen-com._
 
 ## Authors
 
-* [**Angel Guevara**](https://github.com/Faryshta) - *Initial work* - [Tecnocen.com](https://github.com/Tecnocen-com)
-* [**Carlos Llamosas**](https://github.com/neverabe) - *Initial work* - [Tecnocen.com](https://github.com/Tecnocen-com)
+* [**Angel Guevara**](https://github.com/Faryshta) - *Initial work*
+* [**Carlos Llamosas**](https://github.com/neverabe) - *Initial work*
 
-See also the list of [contributors](https://github.com/tecnocen-com/yii2-oauth2-server/graphs/contributors) who participated in this project.
+See also the list of [contributors](/graphs/contributors) who participated in this project.
 
 ## License
 
@@ -313,6 +317,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 * TO DO - Inspiration
 * TO DO - etc
 
-[![yii2-oauth2-server](https://img.shields.io/badge/Powered__by-Tecnocen.com-orange.svg?style=for-the-badge)](https://www.tecnocen.com/)
+[![yii2-oauth2-server](https://img.shields.io/badge/Powered__by-Tecnocen.com-orange.svg?style=for-the-badge)](https://www.roaresearch\yii2.com/)
 
 For more, see https://github.com/bshaffer/oauth2-server-php

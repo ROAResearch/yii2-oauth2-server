@@ -1,8 +1,9 @@
 <?php
 
-namespace tecnocen\oauth2server\models;
+namespace roaresearch\yii2\oauth2server\models;
 
 use Yii;
+use yii\db\{ActiveQuery, ActiveRecord};
 
 /**
  * This is the model class for table "oauth_access_tokens".
@@ -15,7 +16,7 @@ use Yii;
  *
  * @property OauthClients $client
  */
-class OauthAccessTokens extends \yii\db\ActiveRecord
+class OauthAccessTokens extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -55,10 +56,10 @@ class OauthAccessTokens extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getClient()
+    public function getClient(): ActiveQuery
     {
-        return $this->hasOne(OauthClients::className(), ['client_id' => 'client_id']);
+        return $this->hasOne(OauthClients::class, ['client_id' => 'client_id']);
     }
 }

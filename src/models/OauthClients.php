@@ -1,8 +1,9 @@
 <?php
 
-namespace tecnocen\oauth2server\models;
+namespace roaresearch\yii2\oauth2server\models;
 
 use Yii;
+use yii\db\{ActiveQuery, ActiveRecord};
 
 /**
  * This is the model class for table "oauth_clients".
@@ -18,7 +19,7 @@ use Yii;
  * @property OauthAuthorizationCodes[] $oauthAuthorizationCodes
  * @property OauthRefreshTokens[] $oauthRefreshTokens
  */
-class OauthClients extends \yii\db\ActiveRecord
+class OauthClients extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -34,7 +35,10 @@ class OauthClients extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['client_id', 'client_secret', 'redirect_uri', 'grant_types'], 'required'],
+            [
+                ['client_id', 'client_secret', 'redirect_uri', 'grant_types'],
+                'required',
+            ],
             [['user_id'], 'integer'],
             [['client_id', 'client_secret'], 'string', 'max' => 32],
             [['redirect_uri'], 'string', 'max' => 1000],
@@ -59,26 +63,35 @@ class OauthClients extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getOauthAccessTokens()
+    public function getOauthAccessTokens(): ActiveQuery
     {
-        return $this->hasMany(OauthAccessTokens::className(), ['client_id' => 'client_id']);
+        return $this->hasMany(
+            OauthAccessTokens::class,
+            ['client_id' => 'client_id']
+        )->inverseOf('client');
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getOauthAuthorizationCodes()
+    public function getOauthAuthorizationCodes(): ActiveQuery
     {
-        return $this->hasMany(OauthAuthorizationCodes::className(), ['client_id' => 'client_id']);
+        return $this->hasMany(
+            OauthAuthorizationCodes::class,
+            ['client_id' => 'client_id']
+        )->inverseOf('client');
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getOauthRefreshTokens()
+    public function getOauthRefreshTokens(): ActiveQuery
     {
-        return $this->hasMany(OauthRefreshTokens::className(), ['client_id' => 'client_id']);
+        return $this->hasMany(
+            OauthRefreshTokens::class,
+            ['client_id' => 'client_id']
+        )->inverseOf('client');
     }
 }

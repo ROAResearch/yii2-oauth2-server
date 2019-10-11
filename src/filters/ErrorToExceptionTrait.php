@@ -1,14 +1,14 @@
 <?php
 
-namespace tecnocen\oauth2server\filters;
+namespace roaresearch\yii2\oauth2server\filters;
 
-use tecnocen\oauth2server\Module;
-use tecnocen\oauth2server\exceptions\HttpTokenException;
+use roaresearch\yii2\oauth2server\{exceptions\HttpTokenException, Module};
 use Yii;
 use yii\web\HttpException;
 
 /**
- *
+ * Trait to be applied to `\yii\base\Filter` classes which initialize the
+ * OAuth2 Server and handles its responses.
  */
 trait ErrorToExceptionTrait
 {
@@ -47,6 +47,11 @@ trait ErrorToExceptionTrait
         return $result;
     }
 
+    /**
+     * Ensures that the OAuth2 Server returned a success response, otherwise
+     * throws an `HttpTokenException`
+     * @throws HttpTokenException
+     */
     protected function ensureSuccessResponse()
     {
         $response = $this->oauth2Module->getResponse();
@@ -65,7 +70,13 @@ trait ErrorToExceptionTrait
         );
     }
 
-    protected function getErrorMessage(\OAuth2\Response $response)
+    /**
+     * Returns the translated error message on an unsuccessful response.
+     *
+     * @param \OAuth2\Response $response
+     * @return string
+     */
+    protected function getErrorMessage(\OAuth2\Response $response): string
     {
         return Module::t(
                 'oauth2server',

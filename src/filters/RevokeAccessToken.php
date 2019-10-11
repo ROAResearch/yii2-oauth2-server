@@ -1,11 +1,10 @@
 <?php
 
-namespace tecnocen\oauth2server\filters;
+namespace roaresearch\yii2\oauth2server\filters;
 
-use tecnocen\oauth2server\RevokeAccessTokenInterface;
+use roaresearch\yii2\oauth2server\RevokeAccessTokenInterface;
 use Yii;
-use yii\base\InvalidConfigException;
-use yii\web\ForbiddenHttpException;
+use yii\{base\InvalidConfigException, web\ForbiddenHttpException};
 
 /**
  * Revokes access tokens before executing an action.

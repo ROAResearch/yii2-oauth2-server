@@ -1,6 +1,6 @@
 <?php
 
-namespace tecnocen\oauth2server\exceptions;
+namespace roaresearch\yii2\oauth2server\exceptions;
 
 class HttpTokenException extends \yii\web\HttpException
 {

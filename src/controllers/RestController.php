@@ -1,14 +1,13 @@
 <?php
 
-namespace tecnocen\oauth2server\controllers;
+namespace roaresearch\yii2\oauth2server\controllers;
 
-use tecnocen\oauth2server\filters\ErrorToExceptionFilter;
+use roaresearch\yii2\oauth2server\filters\ErrorToExceptionFilter;
 use Yii;
-use yii\helpers\ArrayHelper;
-use yii\rest\OptionsAction;
+use yii\{helpers\ArrayHelper, rest\OptionsAction};
 
 /**
- * @property tecnocen\oauth2server\Module $module
+ * @property roaresearch\yii2\oauth2server\Module $module
  */
 class RestController extends \yii\rest\Controller
 {

@@ -2,8 +2,10 @@
 
 namespace app\controllers;
 
-use tecnocen\oauth2server\filters\auth\CompositeAuth;
-use tecnocen\oauth2server\filters\RevokeAccessToken;
+use roaresearch\yii2\oauth2server\filters\{
+    auth\CompositeAuth,
+    RevokeAccessToken
+};
 use yii\rest\Controller;
 
 class SiteController extends Controller

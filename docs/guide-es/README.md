@@ -18,13 +18,13 @@ Ya sea corriendo
 
 
 ```
-php composer.phar require --prefer-dist tecnocen/yii2-oauth2-server "*"
+php composer.phar require --prefer-dist roaresearch/yii2-oauth2-server "*"
 ```
 
 o agregando
 
 ```json
-"tecnocen/yii2-oauth2-server": "~4.1"
+"roaresearch/yii2-oauth2-server": "~4.1"
 ```
 
 a la sección `require` de tu archivo `composer.json`.
@@ -40,7 +40,7 @@ configuración de aplicación como un nuevo módulo
     'modules'=>[
         // otros modulos ...
         'oauth2' => [
-            'class' => 'tecnocen\oauth2server\Module',            
+            'class' => 'roaresearch\yii2\oauth2server\Module',            
             'tokenParamName' => 'accessToken',
             'tokenAccessLifetime' => 3600 * 24,
             'storageMap' => [
@@ -65,7 +65,7 @@ las reglas de url necesarias a `Yii::$app->urlManager`.
 ### Tokens JWT
 
 No existe soporte para tokens JWT en esta bifurcación, sientanse libres de
-enviar (pull request)[https://github.com/tecnocen-com/yii2-oauth2-server/pulls]
+enviar (pull request)[https://github.com/roaresearch/yii2-oauth2-server/pulls]
 para habilitar esta funcionalidad.
 
 ### UserCredentialsInterface
@@ -86,7 +86,7 @@ class User extends common\models\User implements
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        /** @var \tecnocen\oauth2server\Module $module */
+        /** @var \roaresearch\yii2\oauth2server\Module $module */
         $module = Yii::$app->getModule('oauth2');
         $token = $module->getServer()->getResourceController()->getToken();
         return !empty($token['user_id'])
@@ -122,8 +122,8 @@ class User extends common\models\User implements
 El siguiente paso es correr las migraciones
 
 ```php
-yii migrate all -p=@tecnocen/oauth2server/migrations/tables
-yii fixture "*" -n=tecnocen/oauth2server/fixtures
+yii migrate all -p=@roaresearch/yii2/oauth2server/migrations/tables
+yii fixture "*" -n=roaresearch\\yii2\\oauth2server\\fixtures
 ```
 
 El primer comando crea el esquema de base de datos de OAuth2. El segundo comando
@@ -137,9 +137,8 @@ comportamientos a tu controlador o módulo.
 
 ```php
 use yii\helpers\ArrayHelper;
-use yii\filters\auth\HttpBearerAuth;
-use yii\filters\auth\QueryParamAuth;
-use tecnocen\oauth2server\filters\auth\CompositeAuth;
+use yii\filters\auth\{HttpBearerAuth, QueryParamAuth};
+use roaresearch\yii2\oauth2server\filters\auth\CompositeAuth;
 
 class Controller extends \yii\rest\Controller
 {
@@ -169,7 +168,7 @@ simplificado como:
 
 ```php
 use yii\helpers\ArrayHelper;
-use tecnocen\oauth2server\filters\auth\CompositeAuth;
+use roaresearch\yii2\oauth2server\filters\auth\CompositeAuth;
 
 class Controller extends \yii\rest\Controller
 {
@@ -187,7 +186,7 @@ class Controller extends \yii\rest\Controller
 
 ### Alcances
 
-La propiedad `tecnocen\oauth2server\filters\auth\CompositeAuth::$actionScopes`
+La propiedad `roaresearch\yii2\oauth2server\filters\auth\CompositeAuth::$actionScopes`
 determina que acciones requieren alcances (scope) específicos. Si esos alcances
 no son cubiertos la acción no sera ejecutado, y el servidor responderá con un
 Código de Estado HTTP 403.
@@ -214,13 +213,15 @@ Algunas veces es necesario revocar el token con cada petición para impedir que
 la misma petición sea disparada dos veces.
 
 Para habilitar esta funcionalidad es necesario implementar
-`tecnocen\oauth2server\RevokeAccessTokenInterface` en la clase utilizada para
+`roaresearch\yii2\oauth2server\RevokeAccessTokenInterface` en la clase utilizada para
 identificar el usuario autenticado.
 
 ```php
 use OAuth2\Storage\UserCredentialsInterface;
-use tecnocen\oauth2server\RevokeAccessTokenInterface;
-use tecnocen\oauth2server\RevokeAccessTokenTrait;
+use roaresearch\yii2\oauth2server\{
+    RevokeAccessTokenInterface,
+    RevokeAccessTokenTrait
+};
 
 class User extend \yii\db\ActiveRecord implement
     UserCredentialsInterface,
@@ -235,7 +236,7 @@ class User extend \yii\db\ActiveRecord implement
 Después usar la clase anterior como configuración para
 `Yii::$app->user->identityClass`.
 
-Agregar el filtro de acción `tecnocen\oauth2server\filters\RevokeAccessToken`
+Agregar el filtro de acción `roaresearch\yii2\oauth2server\filters\RevokeAccessToken`
 el cual permite configurar las acciones para revocar automáticamente el token de acceso.
 
 ```php
@@ -243,7 +244,7 @@ public function behaviors()
 {
     return [
         'revokeToken' => [
-            'class' => \tecnocen\oauth2server\filters\RevokeAccessToken::class,
+            'class' => \roaresearch\yii2\oauth2server\filters\RevokeAccessToken::class,
             // opcional solo revocar si el token tiene cualquiera de los
             // siguientes alcances. Si no esta definido siempre revocara el
             // token.
@@ -283,20 +284,20 @@ var data = {
 ## Código de Conducta
 
 Por favor leer
-[CODE_OF_CONDUCT.md](https://github.com/tecnocen-com/yii2-oauth2-server/blob/master/CODE_OF_CONDUCT.md)
+[CODE_OF_CONDUCT.md](https://github.com/roaresearch/yii2-oauth2-server/blob/master/CODE_OF_CONDUCT.md)
 para detalles en el código de conducta.
 
 ## Contribuir
 
 Por favor lean
-[CONTRIBUTING.md](https://github.com/tecnocen-com/yii2-oauth2-server/blob/master/CONTRIBUTING.md)
+[CONTRIBUTING.md](https://github.com/roaresearch/yii2-oauth2-server/blob/master/CONTRIBUTING.md)
 para detalles en el proceso de enviar pull requests a nosotros.
 
 ## Versionamiento
 
 Usamos [SemVer](http://semver.org/) para versionamiento. Para las versiones
 disponibles, ver los
-[tags en este repositorio](https://github.com/tecnocen-com/yii2-oauth2-server/tags).
+[tags en este repositorio](https://github.com/roaresearch/yii2-oauth2-server/tags).
 
 _Considerando [SemVer](http://semver.org/) reglas para versionamiento 9, 10 y 11\hablan sobre pre lanzamientos, los cuales no seran usados en Tecnocen-com._
 
@@ -309,7 +310,7 @@ _Considerando [SemVer](http://semver.org/) reglas para versionamiento 9, 10 y 11
   *Revision* - [Tecnocen.com](https://github.com/Tecnocen-com)
 
 Ver tambien lista completa de
-[contribuidores](https://github.com/tecnocen-com/yii2-oauth2-server/graphs/contributors)
+[contribuidores](https://github.com/roaresearch/yii2-oauth2-server/graphs/contributors)
 quienes participaron en este proyecto.
 
 ## Licencia

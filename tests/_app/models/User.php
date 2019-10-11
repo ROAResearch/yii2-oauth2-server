@@ -3,8 +3,10 @@
 namespace app\models;
 
 use OAuth2\Storage\UserCredentialsInterface;
-use tecnocen\oauth2server\RevokeAccessTokenInterface;
-use tecnocen\oauth2server\RevokeAccessTokenTrait;
+use roaresearch\yii2\oauth2server\{
+    RevokeAccessTokenInterface,
+    RevokeAccessTokenTrait
+};
 use Yii;
 use yii\web\IdentityInterface;
 
