@@ -1,9 +1,8 @@
 <?php
 
-use app\fixtures\UserFixture;
-use app\fixtures\OauthScopesFixture;
+use app\fixtures\{UserFixture, OauthScopesFixture};
 use Codeception\Util\HttpCode;
-use tecnocen\oauth2server\fixtures\OauthClientsFixture;
+use roaresearch\yii2\oauth2server\fixtures\OauthClientsFixture;
 use yii\helpers\Json;
 
 /**

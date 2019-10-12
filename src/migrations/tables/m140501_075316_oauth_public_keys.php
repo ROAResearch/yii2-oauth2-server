@@ -1,6 +1,6 @@
 <?php
 
-use tecnocen\oauth2server\migrations\tables\CreateTable;
+use roaresearch\yii2\oauth2server\migrations\tables\CreateTable;
 
 class m140501_075316_oauth_public_keys extends CreateTable
 {

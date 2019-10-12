@@ -1,8 +1,8 @@
 <?php
 
-namespace tecnocen\oauth2server\migrations\tables;
+namespace roaresearch\yii2\oauth2server\migrations\tables;
 
-abstract class CreateTable extends \tecnocen\migrate\CreateTableMigration
+abstract class CreateTable extends \roaresearch\yii2\migrate\CreateTableMigration
 {
     /**
      * @inheritdoc

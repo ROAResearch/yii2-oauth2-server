@@ -1,22 +1,23 @@
 <?php
 
-namespace tecnocen\oauth2server;
+namespace roaresearch\yii2\oauth2server;
 
-use OAuth2\Request;
-use OAuth2\Response;
+use OAuth2\{Request, Response};
 use ReflectionClass;
 use Yii;
-use yii\base\BootstrapInterface;
-use yii\base\InvalidConfigException;
-use yii\i18n\PhpMessageSource;
-use yii\web\UrlRule;
+use yii\{
+    base\BootstrapInterface,
+    base\InvalidConfigException,
+    i18n\PhpMessageSource,
+    web\UrlRule
+};
 
 /**
  * For example,
  *
  * ```php
  * 'oauth2' => [
- *     'class' => 'tecnocen\oauth2server\Module',
+ *     'class' => 'roaresearch\yii2\oauth2server\Module',
  *     'tokenParamName' => 'accessToken',
  *     'tokenAccessLifetime' => 3600 * 24,
  *     'storageMap' => [
@@ -205,7 +206,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
      *
      * @return Server
      */
-    public function getServer()
+    public function getServer(): Server
     {
         return $this->get('server');
     }
@@ -215,7 +216,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
      *
      * @return Response
      */
-    public function getResponse()
+    public function getResponse(): Response
     {
         return $this->get('response');
     }
@@ -225,7 +226,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
      *
      * @return Request
      */
-    public function getRequest()
+    public function getRequest(): Request
     {
         return $this->get('request');
     }
@@ -235,12 +236,14 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     public function registerTranslations($app)
     {
-        if(!isset($app->get('i18n')->translations['tecnocen/oauth2/*'])) {
-            $app->get('i18n')->translations['tecnocen/oauth2/*'] = [
+        $route = 'roaresearch/yii2/oauth2/';
+
+        if(!isset($app->get('i18n')->translations[$route . '*'])) {
+            $app->get('i18n')->translations[$route . '*'] = [
                 'class'    => PhpMessageSource::class,
                 'basePath' => __DIR__ . '/messages',
                 'fileMap' => [
-                    'tecnocen/oauth2/oauth2server' => 'oauth2server.php',
+                    $route . 'oauth2server' => 'oauth2server.php',
                 ],
             ];
         }
@@ -252,17 +255,17 @@ class Module extends \yii\base\Module implements BootstrapInterface
      * @param string $category
      * @param string $message
      * @param array $params
-     * @param string $language
+     * @param ?string $language
      * @return string
      */
     public static function t(
-        $category,
-        $message,
-        $params = [],
-        $language = null
-    ) {
+        string $category,
+        string $message,
+        array $params = [],
+        ?string $language = null
+    ): string {
         return Yii::t(
-            'tecnocen/oauth2/' . $category,
+            'roaresearch/yii2/oauth2/' . $category,
             $message,
             $params,
             $language

@@ -1,8 +1,9 @@
 <?php
 
-namespace tecnocen\oauth2server\models;
+namespace roaresearch\yii2\oauth2server\models;
 
 use Yii;
+use yii\db\{ActiveQuery, ActiveRecord};
 
 /**
  * This is the model class for table "oauth_authorization_codes".
@@ -16,7 +17,7 @@ use Yii;
  *
  * @property OauthClients $client
  */
-class OauthAuthorizationCodes extends \yii\db\ActiveRecord
+class OauthAuthorizationCodes extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -32,7 +33,10 @@ class OauthAuthorizationCodes extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['authorization_code', 'client_id', 'redirect_uri', 'expires'], 'required'],
+            [
+                ['authorization_code', 'client_id', 'redirect_uri', 'expires'],
+                'required',
+            ],
             [['user_id'], 'integer'],
             [['expires'], 'safe'],
             [['authorization_code'], 'string', 'max' => 40],
@@ -58,10 +62,10 @@ class OauthAuthorizationCodes extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getClient()
+    public function getClient(): ActiveQuery
     {
-        return $this->hasOne(OauthClients::className(), ['client_id' => 'client_id']);
+        return $this->hasOne(OauthClients::class, ['client_id' => 'client_id']);
     }
 }

@@ -1,11 +1,15 @@
 <?php
 
+$appDir = dirname(__DIR__);
+$testDir = dirname($appDir);
+$repositoryDir = dirname($testDir);
+
 return [
-    'basePath' => dirname(__DIR__),
+    'basePath' => $appDir,
     'language' => 'en-US',
     'aliases' => [
-        '@tests' => dirname(dirname(__DIR__)),
-        '@tecnocen/oauth2server' => dirname(dirname(dirname(__DIR__))) . '/src',
+        '@tests' => $testDir,
+        '@roaresearch/yii2/oauth2server' => "$repositoryDir/src",
     ],
     'components' => [
         'db' => require __DIR__ . '/db.php',

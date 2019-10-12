@@ -7,7 +7,7 @@ return yii\helpers\ArrayHelper::merge(
         'bootstrap' => ['oauth2'],
         'modules' => [
             'oauth2' => [
-                'class' => tecnocen\oauth2server\Module::class,
+                'class' => roaresearch\yii2\oauth2server\Module::class,
                 'tokenParamName' => 'accessToken',
                 'tokenAccessLifetime' => 3600 * 24,
                 'storageMap' => [

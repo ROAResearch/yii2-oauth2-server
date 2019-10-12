@@ -1,6 +1,6 @@
 <?php
 
-namespace tecnocen\oauth2server\storage;
+namespace roaresearch\yii2\oauth2server\storage;
 
 class Pdo extends \OAuth2\Storage\Pdo
 {
