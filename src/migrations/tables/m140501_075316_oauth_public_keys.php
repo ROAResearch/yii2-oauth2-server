@@ -7,7 +7,7 @@ class m140501_075316_oauth_public_keys extends CreateTable
     /**
      * @inheritdoc
      */
-    public function getTableName()
+    public function getTableName(): string
     {
         return 'oauth_public_keys';
     }
@@ -15,7 +15,7 @@ class m140501_075316_oauth_public_keys extends CreateTable
     /**
      * @inheritdoc
      */
-    public function columns()
+    public function columns(): array
     {
         return [
             'client_id' => $this->string(32)->notNull(),
@@ -29,7 +29,7 @@ class m140501_075316_oauth_public_keys extends CreateTable
     /**
      * @inheritdoc
      */
-    public function foreignKeys()
+    public function foreignKeys(): array
     {
         return [
             'client_id' => [
@@ -42,7 +42,7 @@ class m140501_075316_oauth_public_keys extends CreateTable
     /**
      * @inheritdoc
      */
-    public function compositePrimaryKeys()
+    public function compositePrimaryKeys(): array
     {
         return ['client_id', 'public_key'];
     }

@@ -7,7 +7,7 @@ class m140501_075315_oauth_scopes extends CreateTable
     /**
      * @inheritdoc
      */
-    public function getTableName()
+    public function getTableName(): string
     {
         return 'oauth_scopes';
     }
@@ -15,7 +15,7 @@ class m140501_075315_oauth_scopes extends CreateTable
     /**
      * @inheritdoc
      */
-    public function columns()
+    public function columns(): array
     {
         return [
             'scope' => $this->primaryKey(200),

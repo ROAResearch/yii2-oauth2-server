@@ -7,7 +7,7 @@ class m140501_075312_oauth_access_tokens extends CreateTable
     /**
      * @inheritdoc
      */
-    public function getTableName()
+    public function getTableName(): string
     {
         return 'oauth_access_tokens';
     }
@@ -15,7 +15,7 @@ class m140501_075312_oauth_access_tokens extends CreateTable
     /**
      * @inheritdoc
      */
-    public function columns()
+    public function columns(): array
     {
         return [
             'access_token' => $this->primaryKey(40),
@@ -29,7 +29,7 @@ class m140501_075312_oauth_access_tokens extends CreateTable
     /**
      * @inheritdoc
      */
-    public function foreignKeys()
+    public function foreignKeys(): array
     {
         return [
             'client_id' => [

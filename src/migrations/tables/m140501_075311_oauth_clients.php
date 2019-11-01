@@ -1,13 +1,13 @@
 <?php
 
-use tecnocen\oauth2server\migrations\tables\CreateTable;
+use roaresearch\yii2\oauth2server\migrations\tables\CreateTable;
 
 class m140501_075311_oauth_clients extends CreateTable
 {
     /**
      * @inheritdoc
      */
-    public function getTableName()
+    public function getTableName(): string
     {
         return 'oauth_clients';
     }
@@ -15,7 +15,7 @@ class m140501_075311_oauth_clients extends CreateTable
     /**
      * @inheritdoc
      */
-    public function columns()
+    public function columns(): array
     {
         return [
             'client_id' => $this->primaryKey(32),

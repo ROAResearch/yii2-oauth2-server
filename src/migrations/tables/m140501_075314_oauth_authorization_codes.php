@@ -7,7 +7,7 @@ class m140501_075314_oauth_authorization_codes extends CreateTable
     /**
      * @inheritdoc
      */
-    public function getTableName()
+    public function getTableName(): string
     {
         return 'oauth_authorization_codes';
     }
@@ -15,7 +15,7 @@ class m140501_075314_oauth_authorization_codes extends CreateTable
     /**
      * @inheritdoc
      */
-    public function columns()
+    public function columns(): array
     {
         return [
             'authorization_code' => $this->primaryKey(40),
@@ -30,7 +30,7 @@ class m140501_075314_oauth_authorization_codes extends CreateTable
     /**
      * @inheritdoc
      */
-    public function foreignKeys()
+    public function foreignKeys(): array
     {
         return [
             'client_id' => [
