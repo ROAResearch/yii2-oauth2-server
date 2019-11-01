@@ -1,6 +1,6 @@
 <?php
 
-class m130101_000001_user extends \tecnocen\migrate\CreateTableMigration
+class m130101_000001_user extends \roaresearch\yii2\migrate\CreateTableMigration
 {
     public function getTableName()
     {
