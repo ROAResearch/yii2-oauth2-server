@@ -317,6 +317,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 * TO DO - Inspiration
 * TO DO - etc
 
-[![yii2-oauth2-server](https://img.shields.io/badge/Powered__by-Tecnocen.com-orange.svg?style=for-the-badge)](https://www.roaresearch\yii2.com/)
+[![yii2-oauth2-server](https://img.shields.io/badge/roaresearch-yii2--oauth2--server-blue)](https://www.roaresearch\yii2.com/)
 
 For more, see https://github.com/bshaffer/oauth2-server-php
