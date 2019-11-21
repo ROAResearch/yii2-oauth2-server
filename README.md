@@ -6,8 +6,10 @@ A wrapper for implementing an
 
 [![Latest Stable Version](https://poser.pugx.org/roaresearch/yii2-oauth2-server/v/stable)](https://packagist.org/packages/roaresearch/yii2-oauth2-server)
 [![Total Downloads](https://poser.pugx.org/roaresearch/yii2-oauth2-server/downloads)](https://packagist.org/packages/roaresearch/yii2-oauth2-server)
+[![Code Coverage](https://scrutinizer-ci.com/g/roaresearch/yii2-oauth2-server/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/roaresearch/yii2-oauth2-server/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/roaresearch/yii2-oauth2-server/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/roaresearch/yii2-oauth2-server/?branch=master)
 
-
+Scrutinizer [![Build Status Scrutinizer](https://scrutinizer-ci.com/g/roaresearch/yii2-oauth2-server/badges/build.png?b=master&style=flat)](https://scrutinizer-ci.com/g/roaresearch/yii2-oauth2-server/build-status/master)
 Travis [![Build Status Travis](https://travis-ci.org/roaresearch/yii2-oauth2-server.svg?branch=master&style=flat?style=for-the-badge)](https://travis-ci.org/roaresearch/yii2-oauth2-server)
 
 This project was forked from
