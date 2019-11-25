@@ -2,12 +2,12 @@
 
 class m130101_000001_user extends \roaresearch\yii2\migrate\CreateTableMigration
 {
-    public function getTableName()
+    public function getTableName(): string
     {
         return 'user';
     }
 
-    public function columns()
+    public function columns(): array
     {
         return [
             'id' => $this->primaryKey(),
