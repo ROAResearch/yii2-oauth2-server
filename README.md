@@ -300,7 +300,7 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on the process for su
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](/tags).
 
-_Considering [SemVer](http://semver.org/) for versioning rules 9, 10 and 11 talk about pre-releases, they will not be used within the Tecnocen-com._
+_Considering [SemVer](http://semver.org/) for versioning rules 9, 10 and 11 talk about pre-releases, they will not be used._
 
 ## Authors
 
@@ -312,13 +312,5 @@ See also the list of [contributors](/graphs/contributors) who participated in th
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* TO DO - Hat tip to anyone who's code was used
-* TO DO - Inspiration
-* TO DO - etc
-
-[![yii2-oauth2-server](https://img.shields.io/badge/roaresearch-yii2--oauth2--server-blue)](https://www.roaresearch\yii2.com/)
 
 For more, see https://github.com/bshaffer/oauth2-server-php

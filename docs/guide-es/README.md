@@ -77,7 +77,7 @@ credenciales de oauth2.
 ```php
 use Yii;
 
-class User extends common\models\User implements 
+class User extends common\models\User implements
     \OAuth2\Storage\UserCredentialsInterface
 {
 
@@ -228,7 +228,7 @@ class User extend \yii\db\ActiveRecord implement
     RevokeAccessTokenInterface
 {
     use RevokeAccessTokenTrait; // opcional, implementacion por defecto.
-    
+
     // resto de la clase.
 }
 ```
@@ -299,15 +299,18 @@ Usamos [SemVer](http://semver.org/) para versionamiento. Para las versiones
 disponibles, ver los
 [tags en este repositorio](https://github.com/roaresearch/yii2-oauth2-server/tags).
 
-_Considerando [SemVer](http://semver.org/) reglas para versionamiento 9, 10 y 11\hablan sobre pre lanzamientos, los cuales no seran usados en Tecnocen-com._
+_Considerando [SemVer](http://semver.org/) reglas para versionamiento 9, 10 y 11 hablan sobre pre lanzamientos, los cuales no seran usados._
 
 ## Autores
 
 * [**Angel Guevara**](https://github.com/Faryshta) -
   *Mantemimiento, refactorizacion* -
   [Tecnocen.com](https://github.com/Tecnocen-com)
+  [ROA Research](https://github.com/roaresearch)
 * [**Carlos Llamosas**](https://github.com/neverabe) -
-  *Revision* - [Tecnocen.com](https://github.com/Tecnocen-com)
+  *Revision* -
+  [Tecnocen.com](https://github.com/Tecnocen-com)
+  [ROA Research](https://github.com/roaresearch)
 
 Ver tambien lista completa de
 [contribuidores](https://github.com/roaresearch/yii2-oauth2-server/graphs/contributors)
@@ -317,7 +320,5 @@ quienes participaron en este proyecto.
 
 Este proyecto esta licenciado bajo MIT License - ver archivo
 [LICENSE.md](LICENSE.md) para detalles.
-
-[![yii2-oauth2-server](https://img.shields.io/badge/Powered__by-Tecnocen.com-orange.svg?style=for-the-badge)](https://www.tecnocen.com/)
 
 Por mas informacion, ver https://github.com/bshaffer/oauth2-server-php
