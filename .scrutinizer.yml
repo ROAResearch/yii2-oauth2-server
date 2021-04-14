@@ -155,8 +155,7 @@ tools:
 build:
     environment:
         php:
-            version: 7.1
-            version: 7.2
+            version: 8.0
     nodes:
         my-tests:
             environment:

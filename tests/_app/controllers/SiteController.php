@@ -33,17 +33,17 @@ class SiteController extends Controller
         ];
     }
 
-    public function actionIndex()
+    public function actionIndex(): object
     {
         return \Yii::$app->user->identity;
     }
 
-    public function actionUser()
+    public function actionUser(): object
     {
         return \Yii::$app->user->identity;
     }
 
-    public function actionSingleUse()
+    public function actionSingleUse(): object
     {
         return \Yii::$app->user->identity;
     }

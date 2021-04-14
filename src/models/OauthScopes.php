@@ -16,7 +16,7 @@ class OauthScopes extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%oauth_scopes}}';
     }
@@ -24,7 +24,7 @@ class OauthScopes extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['scope', 'is_default'], 'required'],
@@ -36,7 +36,7 @@ class OauthScopes extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'scope' => 'Scope',

@@ -13,7 +13,7 @@ class ResourceOwnerPasswordCredentialsCest
     public static $token;
     public static $scopeToken;
 
-    public function fixtures(ApiTester $I)
+    public function fixtures(ApiTester $I): void
     {
         $I->haveFixtures([
             'user' => UserFixture::class,
@@ -25,7 +25,7 @@ class ResourceOwnerPasswordCredentialsCest
     /**
      * @depends fixtures
      */
-    public function accessTokenRequest(ApiTester $I)
+    public function accessTokenRequest(ApiTester $I): void
     {
         $I->wantTo('Request a new access token.');
         $I->amHttpAuthenticated('testclient', 'testpass');
@@ -49,7 +49,7 @@ class ResourceOwnerPasswordCredentialsCest
     /**
      * @depends fixtures
      */
-    public function accessTokenRequestInvalid(ApiTester $I)
+    public function accessTokenRequestInvalid(ApiTester $I): void
     {
         $I->wantTo('Request a new access token with invalid credentials.');
         $I->amHttpAuthenticated('testclient', 'testpass');
@@ -72,7 +72,7 @@ class ResourceOwnerPasswordCredentialsCest
     /**
      * @depends fixtures
      */
-    public function accessTokenRequestWithScopes(ApiTester $I)
+    public function accessTokenRequestWithScopes(ApiTester $I): void
     {
         $I->wantTo('Request a new access token with scope.');
         $I->amHttpAuthenticated('testclient', 'testpass');
@@ -100,7 +100,7 @@ class ResourceOwnerPasswordCredentialsCest
      * @depends accessTokenRequest
      * @depends accessTokenRequestWithScopes
      */
-    public function requestToResource(ApiTester $I)
+    public function requestToResource(ApiTester $I): void
     {
         $I->wantTo('Request a resource controller.');
         $I->sendGET('/site/index', [
@@ -113,7 +113,7 @@ class ResourceOwnerPasswordCredentialsCest
     /**
      * @depends accessTokenRequest
      */
-    public function failedScopedRequest(ApiTester $I)
+    public function failedScopedRequest(ApiTester $I): void
     {
         $I->wantTo('Fail on a resource controller with scope.');
         $I->sendGET('/site/user', [
@@ -122,10 +122,11 @@ class ResourceOwnerPasswordCredentialsCest
 
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
     }
+
     /**
      * @depends accessTokenRequest
      */
-    public function successScopedRequest(ApiTester $I)
+    public function successScopedRequest(ApiTester $I): void
     {
         $I->wantTo('Success on a resource controller with scope.');
         $I->sendGET('/site/user', [
@@ -139,7 +140,7 @@ class ResourceOwnerPasswordCredentialsCest
      * @depends fixtures
      * @depends SingleUseTokenCest:singleUseRequest
      */
-    public function requestToResourceIvalid(ApiTester $I)
+    public function requestToResourceIvalid(ApiTester $I): void
     {
         $I->wantTo('Request a resource controller with invalid token.');
 
