@@ -1,6 +1,11 @@
 Yii2 OAuth2 Server Library
 ==========================
 
+6.0.0
+-----
+
+- [Brk] PHP8 support (Faryshta)
+
 5.0.0
 -----
 
