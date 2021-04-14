@@ -8,7 +8,7 @@ use roaresearch\yii2\oauth2server\fixtures\OauthClientsFixture;
  */
 class ClientCredentialsCest
 {
-    public function fixtures(ApiTester $I)
+    public function fixtures(ApiTester $I): void
     {
         $I->haveFixtures([
             'clients' => OauthClientsFixture::class,
@@ -18,7 +18,7 @@ class ClientCredentialsCest
     /**
      * @depends fixtures
      */
-    public function accessTokenRequestValid(ApiTester $I)
+    public function accessTokenRequestValid(ApiTester $I): void
     {
         $I->wantTo('Request a new access token.');
         $I->amHttpAuthenticated('testclient', 'testpass');
@@ -37,7 +37,7 @@ class ClientCredentialsCest
     /**
      * @depends fixtures
      */
-    public function accessTokenRequestInvalid(ApiTester $I)
+    public function accessTokenRequestInvalid(ApiTester $I): void
     {
         $I->wantTo('Request a new access token with invalid credentials.');
         $I->amHttpAuthenticated('testclient', 'wrongpass');

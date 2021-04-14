@@ -15,12 +15,12 @@ trait ErrorToExceptionTrait
     /**
      * @var string the unique id for the oauth2 module
      */
-    public $oauth2Module = 'oauth2';
+    public string|Module $oauth2Module = 'oauth2';
 
     /**
      * @inheritdoc
      */
-    public function beforeAction($action)
+    public function beforeAction($action): bool
     {
 
         if (parent::beforeAction($action)) {
@@ -52,7 +52,7 @@ trait ErrorToExceptionTrait
      * throws an `HttpTokenException`
      * @throws HttpTokenException
      */
-    protected function ensureSuccessResponse()
+    protected function ensureSuccessResponse(): void
     {
         $response = $this->oauth2Module->getResponse();
         if($response === null

@@ -10,10 +10,12 @@ trait RevokeAccessTokenTrait
     /**
      * @inheritdoc
      */
-    public static function findIdentityByAccessToken($token, $type = null)
-    {
+    public static function findIdentityByAccessToken(
+        $token,
+        $type = null
+    ): ?static {
         return static::find()->innerJoinWith([
-            'activeAccessToken' => function ($query) use ($token) {
+            'activeAccessToken' => function (ActiveQuery $query) use ($token) {
                 $query->andWhere(['access_token' => $token]);
             },
         ])->one();

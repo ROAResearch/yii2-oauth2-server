@@ -43,22 +43,22 @@ class RevokeAccessToken extends \yii\base\ActionFilter
      * @var string[] allows you to define scopes that when found revoke the
      * access token. When empty it revokes the access token regardless of scope.
      */
-    public $revokableScopes = [];
+    public array $revokableScopes = [];
 
     /**
      * @var bool if all access token must be revoked or just the active one.
      */
-    public $revokeAll = false;
+    public bool $revokeAll = false;
 
     /**
      * @var bool whether or not allow guest users from accessing the action.
      */
-    public $allowGuests = false;
+    public bool $allowGuests = false;
 
     /**
      * @inheritdoc
      */
-    public function beforeAction($action)
+    public function beforeAction($action): bool
     {
         if (Yii::$app->user->getIsGuest()) {
             if ($this->allowGuests) {
@@ -73,7 +73,7 @@ class RevokeAccessToken extends \yii\base\ActionFilter
         $user = Yii::$app->user->getIdentity();
         if (!$user instanceof RevokeAccessTokenInterface) {
             throw new InvalidConfigException(
-                get_class($user) . ' must implement '
+                $user::class . ' must implement '
                     . RevokeAccessTokenInterface::class
             );
         }

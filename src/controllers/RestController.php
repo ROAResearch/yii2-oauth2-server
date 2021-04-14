@@ -14,7 +14,7 @@ class RestController extends \yii\rest\Controller
     /**
      * @inheritdoc
      */
-    public function behaviors()
+    public function behaviors(): array
     {
         return ArrayHelper::merge(parent::behaviors(), [
             'exceptionFilter' => [
@@ -27,7 +27,7 @@ class RestController extends \yii\rest\Controller
     /**
      * @inheritdoc
      */
-    protected function verbs()
+    protected function verbs(): array
     {
         return [
             'token' => ['POST'],
@@ -38,7 +38,7 @@ class RestController extends \yii\rest\Controller
     /**
      * @inheritdoc
      */
-    public function actions()
+    public function actions(): array
     {
         return [
             'options' => [

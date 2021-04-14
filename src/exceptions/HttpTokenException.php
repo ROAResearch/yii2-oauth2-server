@@ -5,11 +5,6 @@ namespace roaresearch\yii2\oauth2server\exceptions;
 class HttpTokenException extends \yii\web\HttpException
 {
     /**
-     * @var string Uri for details of exception
-     */
-    public $errorUri;
-
-    /**
      * Constructor.
      * @param integer $status HTTP status code, such as 404, 500, etc.
      * @param string $message error message
@@ -17,9 +12,13 @@ class HttpTokenException extends \yii\web\HttpException
      * @param integer $code error code
      * @param \Exception $previous The previous exception used for the exception chaining.
      */
-    public function __construct($status, $message = null, $errorUri = null, $code = 0, \Exception $previous = null)
-    {
-        $this->errorUri = $errorUri;
+    public function __construct(
+        int $status,
+        $message = null,
+        public ?string $errorUri = null,
+        $code = 0,
+        \Exception $previous = null
+    ) {
         parent::__construct($status, $message, $code, $previous);
     }
 }
