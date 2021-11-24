@@ -57,4 +57,9 @@ class RestController extends \yii\rest\Controller
         return $this->module->getServer()->handleTokenRequest()
             ->getParameters();
     }
-}
+
+    public function actionAuthorize()
+    {
+        return $this->module->getServer()->handleAuthorizeRequest()
+            ->getParameters();
+    }
