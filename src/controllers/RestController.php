@@ -63,3 +63,4 @@ class RestController extends \yii\rest\Controller
         return $this->module->getServer()->handleAuthorizeRequest()
             ->getParameters();
     }
+}
