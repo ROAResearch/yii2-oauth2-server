@@ -60,7 +60,14 @@ class RestController extends \yii\rest\Controller
 
     public function actionAuthorize()
     {
-        return $this->module->getServer()->handleAuthorizeRequest()
-            ->getParameters();
+	if ($this->module->getServer()->validateAuthorizeRequest(
+            $this->module->request,
+            $this->module->response,
+	)) {
+	    return $this->module->response->send();
+	}
+
+	return $this->redirect('');
+
     }
 }

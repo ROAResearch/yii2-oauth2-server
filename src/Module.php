@@ -232,6 +232,14 @@ class Module extends \yii\base\Module implements BootstrapInterface
         return $this->get('request');
     }
 
+    public function validateAuthorizeRequest()
+    {
+        return $this->getServer()->validateAuthorizeRequest(
+            $this->getRequest(),
+            $this->getResponse(),
+        );
+    }
+
     /**
      * Register translations for this module
      */
