@@ -232,12 +232,29 @@ class Module extends \yii\base\Module implements BootstrapInterface
         return $this->get('request');
     }
 
-    public function validateAuthorizeRequest()
+    /**
+     * @return bool
+     */
+    public function validateAuthorizeRequest(): bool
     {
         return $this->getServer()->validateAuthorizeRequest(
             $this->getRequest(),
             $this->getResponse(),
         );
+    }
+
+    /**
+     * @param bool $authorized
+     */
+    public function handleAuthorizeRequest(bool $authorized): Response
+    {
+        $this->getServer()->handleAuthorizeRequest(
+            $this->getRequest(),
+            $response = $this->getResponse(),
+            $authorized,
+        );
+
+        return $response;
     }
 
     /**

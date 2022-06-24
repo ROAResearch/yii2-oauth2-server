@@ -58,16 +58,19 @@ class RestController extends \yii\rest\Controller
             ->getParameters();
     }
 
-    public function actionAuthorize()
+    /**
+     * Action to generate an authorization code which will be redirected to a
+     * uri matching the oauth2 client uri.
+     */
+    public function actionAuthorize(int $authorized = 0)
     {
-	if ($this->module->getServer()->validateAuthorizeRequest(
-            $this->module->request,
-            $this->module->response,
-	)) {
-	    return $this->module->response->send();
-	}
+        $response = $this->module->handleAuthorizeRequest((bool) $authorized);
 
-	return $this->redirect('');
-
+        return $response->isRedirection()
+            ? $this->redirect(
+                $response->getHttpHeader('Location'),
+                $response->getStatusCode(),
+            )
+            : $response->send();
     }
 }

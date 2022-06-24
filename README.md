@@ -237,7 +237,7 @@ class User extend \yii\db\ActiveRecord implement
     RevokeAccessTokenInterface
 {
     use RevokeAccessTokenTrait; // optional, trait with default implementation.
-    
+
     // rest of the class.
 }
 ```
@@ -282,6 +282,30 @@ var data = {
 };
 //ajax POST `data` to `url` here
 //
+```
+
+## Authorize Action
+
+Action used to generate access codes for external servers. To test its use first
+run the provided fixtures so the testclient is loaded into the database.
+
+```
+composer run-fixtures
+```
+
+If the test url you are using is not on the default uri list, you will have to
+modify the information on the table `oauth_clients` in your database.
+
+Then you can test the access code generation by accessing the Yii2 uri
+
+```
+/oauth2/rest/authorize?client_id=testclient&authorized=1&response_type=code&state=xyz&redirect_uri=http://127.0.0.1:8080/
+```
+
+Which must redirect to
+
+```
+http://127.0.0.1:8080/?code=[access code]6&state=xyz
 ```
 
 ## Built With

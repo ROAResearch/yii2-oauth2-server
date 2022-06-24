@@ -60,6 +60,10 @@
             "@php tests/_app/yii.php migrate -p=@roaresearch/yii2/oauth2server/migrations/tables --interactive=0",
             "@php tests/_app/yii.php migrate -p=@app/migrations/ --interactive=0"
         ],
+        "run-fixtures": [
+            "@php tests/_app/yii.php fixture '*' -n=roaresearch\\\\yii2\\\\oauth2server\\\\fixtures --interactive=0",
+            "@php tests/_app/yii.php fixture '*' -n=app\\\\fixtures --interactive=0"
+        ],
         "run-tests": [
             "@php vendor/bin/codecept run --steps"
         ],
