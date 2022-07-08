@@ -246,12 +246,15 @@ class Module extends \yii\base\Module implements BootstrapInterface
     /**
      * @param bool $authorized
      */
-    public function handleAuthorizeRequest(bool $authorized): Response
-    {
+    public function handleAuthorizeRequest(
+        bool $authorized,
+        string|int $user_id
+    ): Response {
         $this->getServer()->handleAuthorizeRequest(
             $this->getRequest(),
             $response = $this->getResponse(),
             $authorized,
+            $user_id
         );
 
         return $response;

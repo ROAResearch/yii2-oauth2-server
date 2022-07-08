@@ -299,13 +299,39 @@ modify the information on the table `oauth_clients` in your database.
 Then you can test the access code generation by accessing the Yii2 uri
 
 ```
-/oauth2/rest/authorize?client_id=testclient&authorized=1&response_type=code&state=xyz&redirect_uri=http://127.0.0.1:8080/
+/WEB/authorize?client_id=testclient&response_type=code&state=xyz&redirect_uri=http://127.0.0.1:8080/
 ```
 
-Which must redirect to
+Which must show a minimal form with just 2 buttons to choose whether you deny
+or authorize. If you authorize a new access code will be generated and will
+redirect to:
 
 ```
 http://127.0.0.1:8080/?code=[access code]6&state=xyz
+```
+
+If you deny access, it will redirect to the same URI with an error code instead.
+
+You can use the class `roaresearch\yii2\oauth2server\actions\AuthorizeAction` to
+declare authorize actions at any controller you want.
+
+```php
+use roaresearch\yii2\oauth2server\actions\AuthorizeAction;
+
+class SiteController extends Controller
+{
+    public function actions()
+    {
+        return [
+            'authorize' => [
+                'class' => AuthorizeAction::class,
+                'loginUri' => ['site/login'],
+                'viewRoute' => 'authorize',
+                'oauth2Module' => 'api/oauth2',
+            ],
+        ];
+    }
+}
 ```
 
 ## Built With
