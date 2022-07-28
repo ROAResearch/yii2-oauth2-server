@@ -58,6 +58,7 @@
         "deploy-tests": [
             "@configDB",
             "@php tests/_app/yii.php migrate -p=@roaresearch/yii2/oauth2server/migrations/tables --interactive=0",
+            "@php tests/_app/yii.php migrate -p=@roaresearch/yii2/oauth2server/migrations/openID --interactive=0",
             "@php tests/_app/yii.php migrate -p=@app/migrations/ --interactive=0"
         ],
         "run-fixtures": [
