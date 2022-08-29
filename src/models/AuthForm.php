@@ -5,11 +5,33 @@ namespace roaresearch\yii2\oauth2server\models;
 use Yii;
 use yii\db\IntegrityException;
 
+/**
+ * Form model used to validate an authorization request.
+ *
+ * @author Angel (Faryshta) Guevara <aguevara@invernaderolabs.com>
+ */
 class AuthForm extends \yii\base\Model
 {
+    /**
+     * @var ?bool $authorized whether the user authorize access to the external
+     *   client
+     */
     public ?bool $authorized = null;
+
+    /**
+     * @var ?bool $client_id the id of the client requesting authorization
+     */
     public ?string $client_id = null;
+
+    /**
+     * @var ?string $scopes the requested scopes which will be permited when
+     *   creating an access token
+     */
     public ?string $scopes = null;
+
+    /**
+     * @var ?string $response_type the
+     */
     public ?string $response_type = null;
     public ?string $state = null;
     public ?string $redirect_uri = null;

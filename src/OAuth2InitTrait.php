@@ -49,6 +49,7 @@ trait OAuth2InitTrait
         'OauthAccessTokens' => models\OauthAccessTokens::class,
         'OauthAuthorizationCodes' => models\OauthAuthorizationCodes::class,
         'OauthRefreshTokens' => models\OauthRefreshTokens::class,
+        'OauthPublicKeys' => models\OauthPublicKeys::class,
         'OauthScopes' => models\OauthScopes::class,
     ];
 

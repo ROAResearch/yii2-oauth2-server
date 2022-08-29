@@ -19,8 +19,8 @@ class m140501_075316_oauth_public_keys extends CreateTable
     {
         return [
             'client_id' => $this->string(32)->notNull(),
-            'public_key' => $this->string(200)->notNUll(),
-            'private_key' => $this->string(200)->notNUll(),
+            'public_key' => $this->string(2000)->notNUll(),
+            'private_key' => $this->string(2000)->notNUll(),
             'encription_algorithm' => $this->string(100)->notNull()
                 ->defaultValue('RS256'),
         ];
