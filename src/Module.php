@@ -9,7 +9,7 @@ use yii\{
     base\BootstrapInterface,
     base\InvalidConfigException,
     i18n\PhpMessageSource,
-    web\UrlRule
+    web\UrlRule,
 };
 
 /**
@@ -40,7 +40,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     /**
      * @var bool whether the oauth2 server was initialized
      */
-    private $serverInitialized = false;
+    private bool $serverInitialized = false;
 
     /**
      * @inheritdoc
@@ -50,31 +50,32 @@ class Module extends \yii\base\Module implements BootstrapInterface
     /**
      * @var array Model's map
      */
-    public $modelMap = [];
+    public array $modelMap = [];
 
     /**
      * @var array Storage's map
      */
-    public $storageMap = [];
+    public array $storageMap = [];
 
     /**
      * @var array GrantTypes collection
      */
-    public $grantTypes = [];
+    public array $grantTypes = [];
 
     /**
      * @var string name of access token parameter
      */
-    public $tokenParamName;
+    public string $tokenParamName;
 
     /**
-     * @var type max access lifetime
+     * @var int max access lifetime in seconds
      */
-    public $tokenAccessLifetime;
+    public int $tokenAccessLifetime;
+
     /**
      * @var array Model's map
      */
-    protected $defaultModelMap = [
+    protected array $defaultModelMap = [
         'OauthClients' => models\OauthClients::class,
         'OauthAccessTokens' => models\OauthAccessTokens::class,
         'OauthAuthorizationCodes' => models\OauthAuthorizationCodes::class,
@@ -85,7 +86,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     /**
      * @var array Storage's map
      */
-    protected $defaultStorageMap = [
+    protected array $defaultStorageMap = [
         'access_token' => storage\Pdo::class,
         'authorization_code' => storage\Pdo::class,
         'client_credentials' => storage\Pdo::class,
@@ -100,7 +101,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     /**
      * @inheritdoc
      */
-    public function urlRules()
+    public function urlRules(): array
     {
         return [
             [
@@ -121,7 +122,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     /**
      * Initializes the oauth2 server and its dependencies.
      */
-    public function initOauth2Server()
+    public function initOauth2Server(): void
     {
         if ($this->serverInitialized) {
             return;
@@ -177,7 +178,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     /**
      * @inheritdoc
      */
-    public function beforeAction($action)
+    public function beforeAction($action): bool
     {
         if (!parent::beforeAction($action)) {
             return false;
@@ -190,7 +191,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     /**
      * @inheritdoc
      */
-    public function bootstrap($app)
+    public function bootstrap($app): void
     {
         if ($app instanceof \yii\web\Application) {
             $app->getUrlManager()->addRules($this->urlRules());
@@ -232,21 +233,47 @@ class Module extends \yii\base\Module implements BootstrapInterface
     }
 
     /**
+     * @return bool
+     */
+    public function validateAuthorizeRequest(): bool
+    {
+        return $this->getServer()->validateAuthorizeRequest(
+            $this->getRequest(),
+            $this->getResponse(),
+        );
+    }
+
+    /**
+     * @param bool $authorized
+     */
+    public function handleAuthorizeRequest(
+        bool $authorized,
+        string|int $user_id
+    ): Response {
+        $this->getServer()->handleAuthorizeRequest(
+            $this->getRequest(),
+            $response = $this->getResponse(),
+            $authorized,
+            $user_id
+        );
+
+        return $response;
+    }
+
+    /**
      * Register translations for this module
      */
-    public function registerTranslations($app)
+    public function registerTranslations($app): void
     {
         $route = 'roaresearch/yii2/oauth2/';
 
-        if(!isset($app->get('i18n')->translations[$route . '*'])) {
-            $app->get('i18n')->translations[$route . '*'] = [
-                'class'    => PhpMessageSource::class,
-                'basePath' => __DIR__ . '/messages',
-                'fileMap' => [
-                    $route . 'oauth2server' => 'oauth2server.php',
-                ],
-            ];
-        }
+        $app->get('i18n')->translations[$route . '*'] ??= [
+            'class' => PhpMessageSource::class,
+            'basePath' => __DIR__ . '/messages',
+            'fileMap' => [
+                $route . 'oauth2server' => 'oauth2server.php',
+            ],
+        ];
     }
 
     /**

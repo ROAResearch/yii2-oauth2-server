@@ -13,13 +13,8 @@ use OAuth2\{
 
 class Server extends BaseServer
 {
-    /**
-     * @var Module
-     */
-    protected $module;
-
     public function __construct(
-        Module $module,
+        protected Module $module,
         $storage = [],
         array $config = [],
         array $grantTypes = [],
@@ -28,7 +23,6 @@ class Server extends BaseServer
         ScopeInterface $scopeUtil = null,
         ClientAssertionTypeInterface $clientAssertionType = null
     ) {
-        $this->module = $module;
         parent::__construct(
             $storage,
             $config,

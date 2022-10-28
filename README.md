@@ -10,7 +10,6 @@ A wrapper for implementing an
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/roaresearch/yii2-oauth2-server/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/roaresearch/yii2-oauth2-server/?branch=master)
 
 Scrutinizer [![Build Status Scrutinizer](https://scrutinizer-ci.com/g/roaresearch/yii2-oauth2-server/badges/build.png?b=master&style=flat)](https://scrutinizer-ci.com/g/roaresearch/yii2-oauth2-server/build-status/master)
-Travis [![Build Status Travis](https://travis-ci.org/roaresearch/yii2-oauth2-server.svg?branch=master&style=flat?style=for-the-badge)](https://travis-ci.org/roaresearch/yii2-oauth2-server)
 
 This project was forked from
 [Filsh Original Project](https://github.com/Filsh/yii2-oauth2-server) but the
@@ -31,7 +30,7 @@ php composer.phar require --prefer-dist roaresearch/yii2-oauth2-server "*"
 or add
 
 ```json
-"roaresearch/yii2-oauth2-server": "~5.0.0"
+"roaresearch/yii2-oauth2-server": "~6.0.0"
 ```
 
 to the require section of your composer.json.
@@ -237,7 +236,7 @@ class User extend \yii\db\ActiveRecord implement
     RevokeAccessTokenInterface
 {
     use RevokeAccessTokenTrait; // optional, trait with default implementation.
-    
+
     // rest of the class.
 }
 ```
@@ -282,6 +281,56 @@ var data = {
 };
 //ajax POST `data` to `url` here
 //
+```
+
+## Authorize Action
+
+Action used to generate access codes for external servers. To test its use first
+run the provided fixtures so the testclient is loaded into the database.
+
+```
+composer run-fixtures
+```
+
+If the test url you are using is not on the default uri list, you will have to
+modify the information on the table `oauth_clients` in your database.
+
+Then you can test the access code generation by accessing the Yii2 uri
+
+```
+/WEB/authorize?client_id=testclient&response_type=code&state=xyz&redirect_uri=http://127.0.0.1:8080/
+```
+
+Which must show a minimal form with just 2 buttons to choose whether you deny
+or authorize. If you authorize a new access code will be generated and will
+redirect to:
+
+```
+http://127.0.0.1:8080/?code=[access code]6&state=xyz
+```
+
+If you deny access, it will redirect to the same URI with an error code instead.
+
+You can use the class `roaresearch\yii2\oauth2server\actions\AuthorizeAction` to
+declare authorize actions at any controller you want.
+
+```php
+use roaresearch\yii2\oauth2server\actions\AuthorizeAction;
+
+class SiteController extends Controller
+{
+    public function actions()
+    {
+        return [
+            'authorize' => [
+                'class' => AuthorizeAction::class,
+                'loginUri' => ['site/login'],
+                'viewRoute' => 'authorize',
+                'oauth2Module' => 'api/oauth2',
+            ],
+        ];
+    }
+}
 ```
 
 ## Built With

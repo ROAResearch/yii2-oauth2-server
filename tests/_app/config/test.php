@@ -28,9 +28,6 @@ return yii\helpers\ArrayHelper::merge(
             ],
         ],
         'components' => [
-            'mailer' => [
-                'useFileTransport' => true,
-            ],
             'user' => ['identityClass' => app\models\User::class],
             'urlManager' => [
                 'showScriptName' => true,

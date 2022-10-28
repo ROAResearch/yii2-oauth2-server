@@ -14,7 +14,7 @@ class RestController extends \yii\rest\Controller
     /**
      * @inheritdoc
      */
-    public function behaviors()
+    public function behaviors(): array
     {
         return ArrayHelper::merge(parent::behaviors(), [
             'exceptionFilter' => [
@@ -27,7 +27,7 @@ class RestController extends \yii\rest\Controller
     /**
      * @inheritdoc
      */
-    protected function verbs()
+    protected function verbs(): array
     {
         return [
             'token' => ['POST'],
@@ -38,7 +38,7 @@ class RestController extends \yii\rest\Controller
     /**
      * @inheritdoc
      */
-    public function actions()
+    public function actions(): array
     {
         return [
             'options' => [
@@ -56,5 +56,21 @@ class RestController extends \yii\rest\Controller
     {
         return $this->module->getServer()->handleTokenRequest()
             ->getParameters();
+    }
+
+    /**
+     * Action to generate an authorization code which will be redirected to a
+     * uri matching the oauth2 client uri.
+     */
+    public function actionAuthorize(int $authorized = 0)
+    {
+        $response = $this->module->handleAuthorizeRequest((bool) $authorized);
+
+        return $response->isRedirection()
+            ? $this->redirect(
+                $response->getHttpHeader('Location'),
+                $response->getStatusCode(),
+            )
+            : $response->send();
     }
 }

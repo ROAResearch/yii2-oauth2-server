@@ -27,7 +27,7 @@ class CompositeAuth extends \yii\filters\auth\CompositeAuth
      *
      * @see https://www.yiiframework.com/doc/api/2.0/yii-helpers-basestringhelper#matchWildcard()-detail
      */
-    public $actionScopes = [];
+    public array $actionScopes = [];
 
     /**
      * @inheritdoc
@@ -43,7 +43,7 @@ class CompositeAuth extends \yii\filters\auth\CompositeAuth
     /**
      * @inheritdoc
      */
-    public function beforeAction($action)
+    public function beforeAction($action): bool
     {
         if ($this->traitBeforeAction($action)) {
             $this->oauth2Module->getServer()->verifyResourceRequest(

@@ -3,7 +3,7 @@
 namespace roaresearch\yii2\oauth2server\models;
 
 use Yii;
-use yii\db\{ActiveQuery, ActiveRecord};
+use yii\db\{ActiveQuery, ActiveRecord, IntegrityException};
 
 /**
  * This is the model class for table "oauth_clients".
@@ -24,7 +24,7 @@ class OauthClients extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%oauth_clients}}';
     }
@@ -32,7 +32,7 @@ class OauthClients extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -50,7 +50,7 @@ class OauthClients extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'client_id' => 'Client ID',
@@ -93,5 +93,28 @@ class OauthClients extends ActiveRecord
             OauthRefreshTokens::class,
             ['client_id' => 'client_id']
         )->inverseOf('client');
+    }
+
+    public function assureScope(string $scope): OauthScopes
+    {
+        if (!str_contains($this->scopes, $scope)) {
+            $this->unknownScope($scope );
+        }
+
+        return OauthScopes::findOne($scope) ?: $this->unknownScope($scope);
+
+    }
+
+    public function validateUri(string $uri): bool
+    {
+        return str_contains($this->redirect_uri, $uri);
+    }
+
+    protected function unknownScope(string $scope): never
+    {
+        throw new IntegrityException(
+            OauthScopes::class,
+            "Unknown scope '$scope'"
+        );
     }
 }
