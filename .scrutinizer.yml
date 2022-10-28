@@ -71,7 +71,6 @@ checks:
         deprecated_code_usage: true
         deadlock_detection_in_loops: true
         comparison_always_same_result: true
-        code_rating: true
         closure_use_not_conflicting: true
         closure_use_modifiable: true
         classes_in_camel_caps: true
