@@ -30,7 +30,7 @@ php composer.phar require --prefer-dist roaresearch/yii2-oauth2-server "*"
 or add
 
 ```json
-"roaresearch/yii2-oauth2-server": "~5.0.0"
+"roaresearch/yii2-oauth2-server": "~6.0.0"
 ```
 
 to the require section of your composer.json.
