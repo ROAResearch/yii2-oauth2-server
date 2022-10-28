@@ -1,6 +1,12 @@
 Yii2 OAuth2 Server Library
 ==========================
 
+7.0.0
+-----
+
+- [Brk] PHP8.1 support (Faryshta)
+- [Enh] Authorize support via action and grants.
+
 6.0.0
 -----
 
