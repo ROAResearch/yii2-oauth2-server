@@ -10,7 +10,6 @@ A wrapper for implementing an
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/roaresearch/yii2-oauth2-server/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/roaresearch/yii2-oauth2-server/?branch=master)
 
 Scrutinizer [![Build Status Scrutinizer](https://scrutinizer-ci.com/g/roaresearch/yii2-oauth2-server/badges/build.png?b=master&style=flat)](https://scrutinizer-ci.com/g/roaresearch/yii2-oauth2-server/build-status/master)
-Travis [![Build Status Travis](https://travis-ci.org/roaresearch/yii2-oauth2-server.svg?branch=master&style=flat?style=for-the-badge)](https://travis-ci.org/roaresearch/yii2-oauth2-server)
 
 This project was forked from
 [Filsh Original Project](https://github.com/Filsh/yii2-oauth2-server) but the
