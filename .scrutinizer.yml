@@ -152,22 +152,25 @@ tools:
         enabled: false # solicitado por scrutinizer para usar php_analyzer
         excluded_dirs: [vendor, tests]
 build:
+    image: default-bionic
     environment:
+        variables:
+            dbuser: root
+            dbname: yii2_oauth2_server_test
+            dbdsn: mysql:host=127.0.0.1:3306
+            dbpass:
+            XDEBUG_MODE: coverage
         php:
-            version: 8.1
+            version: 8.1.2
     nodes:
         my-tests:
-            environment:
-                mysql: 5.6
-            project_setup:
-                before:
-                    # crear la base de datos, el nombre tiene que coincidir con la base
-                    # del archivo `environments/dev/common/config/main-local.php`
-                    - mysql -e "create database yii2_oauth2_server_test"
+            services:
+            # For available tags, see https://hub.docker.com/_/mariadb/
+                mariadb: 10
             tests:
                 before:
                     # run migrations
-                    - composer deploy-tests
+                    - composer deploy
                 override:
                     # test coverage
                     -
